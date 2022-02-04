@@ -1,4 +1,4 @@
-package ru.roculka.roculka.service;
+package ru.example.Conference.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import ru.roculka.roculka.entity.UserEntity;
+import ru.example.Conference.entity.UserEntity;
 
 import java.util.Collection;
 import java.util.List;

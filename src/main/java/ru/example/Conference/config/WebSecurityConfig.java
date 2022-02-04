@@ -1,4 +1,4 @@
-package ru.roculka.roculka.config;
+package ru.example.Conference.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,9 +13,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import ru.roculka.roculka.config.jwt.AuthEntryPointJwt;
-import ru.roculka.roculka.config.jwt.AuthTokenFilter;
-import ru.roculka.roculka.service.UserDetailsServiceImpl;
+import ru.example.Conference.config.jwt.AuthTokenFilter;
+import ru.example.Conference.config.jwt.AuthEntryPointJwt;
+import ru.example.Conference.service.UserDetailsServiceImpl;
 
 @EnableWebSecurity
 @Configuration

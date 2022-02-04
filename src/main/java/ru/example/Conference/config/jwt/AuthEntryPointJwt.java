@@ -1,4 +1,4 @@
-package ru.roculka.roculka.config.jwt;
+package ru.example.Conference.config.jwt;
 
 import java.io.IOException;
 import java.util.HashMap;

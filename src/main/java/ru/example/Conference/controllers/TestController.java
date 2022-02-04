@@ -1,4 +1,4 @@
-package ru.roculka.roculka.controllers;
+package ru.example.Conference.controllers;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,13 +17,13 @@ public class TestController {
     }
 
     @GetMapping("/user")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('LISTENER') or hasRole('SPEAKER') or hasRole('ADMIN')")
     public String userAccess() {
         return "user API";
     }
 
     @GetMapping("/mod")
-    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('SPEAKER') or hasRole('ADMIN')")
     public String moderatorAccess() {
         return "moderator API";
     }

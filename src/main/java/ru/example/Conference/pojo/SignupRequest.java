@@ -1,13 +1,18 @@
-package ru.roculka.roculka.pojo;
+package ru.example.Conference.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest {
+@AllArgsConstructor
+public class SignupRequest {
     private String username;
     private String password;
+    private String email;
+    private Set<String> roles;
+
 }

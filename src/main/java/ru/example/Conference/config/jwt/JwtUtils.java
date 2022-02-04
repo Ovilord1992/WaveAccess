@@ -1,4 +1,4 @@
-package ru.roculka.roculka.config.jwt;
+package ru.example.Conference.config.jwt;
 
 import java.util.Date;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
-import ru.roculka.roculka.service.UserDetailsImpl;
+import ru.example.Conference.service.UserDetailsImpl;
 
 @Component
 @Data
@@ -33,9 +33,7 @@ public class JwtUtils {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(jwt);
             return true;
-        } catch (MalformedJwtException e) {
-            System.err.println(e.getMessage());
-        } catch (IllegalArgumentException e) {
+        } catch (MalformedJwtException | IllegalArgumentException e) {
             System.err.println(e.getMessage());
         }
 

@@ -1,4 +1,4 @@
-package ru.roculka.roculka.pojo;
+package ru.example.Conference.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

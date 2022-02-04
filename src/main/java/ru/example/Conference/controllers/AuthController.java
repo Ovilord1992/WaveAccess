@@ -1,4 +1,4 @@
-package ru.roculka.roculka.controllers;
+package ru.example.Conference.controllers;
 
 import java.util.HashSet;
 import java.util.List;
@@ -17,17 +17,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.roculka.roculka.config.jwt.JwtUtils;
-import ru.roculka.roculka.entity.ERole;
-import ru.roculka.roculka.entity.Roles;
-import ru.roculka.roculka.entity.UserEntity;
-import ru.roculka.roculka.pojo.JwtResponse;
-import ru.roculka.roculka.pojo.LoginRequest;
-import ru.roculka.roculka.pojo.MessageResponse;
-import ru.roculka.roculka.pojo.SignupRequest;
-import ru.roculka.roculka.repo.RoleRepository;
-import ru.roculka.roculka.repo.UserRepository;
-import ru.roculka.roculka.service.UserDetailsImpl;
+import ru.example.Conference.entity.ERole;
+import ru.example.Conference.entity.Roles;
+import ru.example.Conference.entity.UserEntity;
+import ru.example.Conference.pojo.JwtResponse;
+import ru.example.Conference.repo.UserRepository;
+import ru.example.Conference.config.jwt.JwtUtils;
+import ru.example.Conference.pojo.LoginRequest;
+import ru.example.Conference.pojo.MessageResponse;
+import ru.example.Conference.pojo.SignupRequest;
+import ru.example.Conference.repo.RoleRepository;
+import ru.example.Conference.service.UserDetailsImpl;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -95,7 +95,7 @@ public class AuthController {
 
         if (reqRoles == null) {
             Roles userRole = roleRepository
-                    .findByName(ERole.ROLE_USER)
+                    .findByName(ERole.ROLE_LISTENER)
                     .orElseThrow(() -> new RuntimeException("Error, Role USER is not found"));
             roles.add(userRole);
         } else {
@@ -110,7 +110,7 @@ public class AuthController {
                         break;
                     case "mod":
                         Roles modRole = roleRepository
-                                .findByName(ERole.ROLE_MODERATOR)
+                                .findByName(ERole.ROLE_SPEAKER)
                                 .orElseThrow(() -> new RuntimeException("Error, Role MODERATOR is not found"));
                         roles.add(modRole);
 
@@ -118,7 +118,7 @@ public class AuthController {
 
                     default:
                         Roles userRole = roleRepository
-                                .findByName(ERole.ROLE_USER)
+                                .findByName(ERole.ROLE_LISTENER)
                                 .orElseThrow(() -> new RuntimeException("Error, Role USER is not found"));
                         roles.add(userRole);
                 }
