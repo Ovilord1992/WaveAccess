@@ -7,19 +7,15 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
+@Table(name = "room")
 @Data
-@Table(name = "roles")
-public class Roles {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Enumerated(EnumType.STRING)
-    @Column(length = 20)
-    private ERole name;
-
-    public Roles(ERole name) {
-        this.name = name;
-    }
+    private Long name;
+    @OneToOne(mappedBy = "room")
+    private Schedule schedule;
 }
