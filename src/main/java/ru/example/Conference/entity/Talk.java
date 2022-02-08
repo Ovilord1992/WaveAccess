@@ -1,5 +1,6 @@
 package ru.example.Conference.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,14 +18,14 @@ public class Talk {
     private Long id;
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "talk_user",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "talk_id")
+            joinColumns = @JoinColumn(name = "talk_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private Set<UserEntity> users;
 
-    @OneToOne(mappedBy = "talk")
+    @OneToOne(mappedBy = "talk", fetch = FetchType.EAGER)
     private Schedule schedule;
 
 }
