@@ -1,5 +1,8 @@
 package ru.example.Conference.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +28,7 @@ public class Schedule {
     @OneToOne()
     @JoinColumn(name = "talk_id")
     private Talk talk;
-    private String conferenceDay;
-
-
+//    private Date year;
+    private Date startTime;
+//    private Date endTime;
 }
