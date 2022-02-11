@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -62,7 +63,7 @@ public class AuthController {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
+                .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(new JwtResponse(jwt,
@@ -96,7 +97,7 @@ public class AuthController {
         if (reqRoles == null) {
             Roles userRole = roleRepository
                     .findByName(ERole.ROLE_LISTENER)
-                    .orElseThrow(() -> new RuntimeException("Error, Role USER is not found"));
+                    .orElseThrow(() -> new RuntimeException("Error, Role LISTENER is not found"));
             roles.add(userRole);
         } else {
             reqRoles.forEach(r -> {
@@ -116,7 +117,7 @@ public class AuthController {
                     default -> {
                         Roles userRole = roleRepository
                                 .findByName(ERole.ROLE_LISTENER)
-                                .orElseThrow(() -> new RuntimeException("Error, Role USER is not found"));
+                                .orElseThrow(() -> new RuntimeException("Error, Role LISTENER is not found"));
                         roles.add(userRole);
                     }
                 }
@@ -124,6 +125,6 @@ public class AuthController {
         }
         user.setRoles(roles);
         userRepository.save(user);
-        return ResponseEntity.ok(new MessageResponse("User CREATED"));
+        return ResponseEntity.ok(new MessageResponse("LISTENER CREATED"));
     }
 }

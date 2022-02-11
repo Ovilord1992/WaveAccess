@@ -1,38 +1,37 @@
 package ru.example.Conference.controllers;
 
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.example.Conference.entity.Room;
-import ru.example.Conference.entity.Schedule;
-import ru.example.Conference.pojo.ScheduleResponse;
-import ru.example.Conference.repo.RoomRepository;
-import ru.example.Conference.repo.ScheduleRepository;
-import ru.example.Conference.repo.TalkRepository;
+import ru.example.Conference.dto.ScheduleDTO;
+import ru.example.Conference.dto.RoomDTO;
+import ru.example.Conference.service.ScheduleService;
 
-import java.text.Format;
-import java.time.LocalDateTime;
+import java.util.List;
 
 
 @RestController
 @RequestMapping("/api/schedule")
 public class ScheduleController {
+
     @Autowired
-    private  ScheduleRepository scheduleRepository;
-    @Autowired
-    private  RoomRepository roomRepository;
-    @Autowired
-    private  TalkRepository talkRepository;
+    private ScheduleService scheduleService;
+
 
     @PostMapping("/add")
-    public void addNew(@RequestBody ScheduleResponse scheduleResponse){
-        Schedule s = new Schedule();
-        s.setTalk(talkRepository.getById(scheduleResponse.getTalk()));
-        s.setRoom(roomRepository.getById(scheduleResponse.getRoom()));
-        s.setStartTime(scheduleResponse.getStartTime());
-       scheduleRepository.save(s);
+    @PreAuthorize("hasRole('ROLE_SPEAKER')")
+    public void addNewSchedule(@RequestBody ScheduleDTO scheduleDTO) throws Exception {
+        scheduleService.createSchedule(scheduleDTO);
     }
 
+    @GetMapping("/registerInTalk")
+    @PreAuthorize("hasRole('ROLE_LISTENER')")
+    public void registerInTalk(@RequestParam Long id){
+       scheduleService.registerInTalk(id);
+    }
+
+    @GetMapping("/getAllSchedules")
+    public List<RoomDTO> getAllSchedules(){
+        return scheduleService.getAllSchedules();
+    }
 }

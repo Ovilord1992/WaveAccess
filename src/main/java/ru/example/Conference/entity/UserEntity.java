@@ -1,5 +1,6 @@
 package ru.example.Conference.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,7 +11,8 @@ import java.util.Set;
         @UniqueConstraint(columnNames = "username"),
         @UniqueConstraint(columnNames = "email")
 })
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserEntity {
@@ -22,7 +24,6 @@ public class UserEntity {
     private String username;
     @NonNull
     private String password;
-
     @NonNull
     private String email;
 
@@ -33,7 +34,7 @@ public class UserEntity {
     )
     private Set<Roles> roles;
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private Set<Talk> talks;
 
 
@@ -41,5 +42,12 @@ public class UserEntity {
         this.username = username;
         this.password = password;
         this.email = email;
+    }
+
+    public UserEntity(@NonNull String username, @NonNull String password, @NonNull String email, Set<Roles> roles) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.roles = roles;
     }
 }

@@ -1,15 +1,15 @@
 package ru.example.Conference.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "talk")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Talk {
@@ -17,15 +17,13 @@ public class Talk {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-
-    @ManyToMany(fetch = FetchType.LAZY)
+    private String about;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "talk_user",
             joinColumns = @JoinColumn(name = "talk_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private Set<UserEntity> users;
-
-    @OneToOne(mappedBy = "talk", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "talk", fetch = FetchType.LAZY)
     private Schedule schedule;
-
 }

@@ -3,9 +3,7 @@ package ru.example.Conference.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -16,19 +14,25 @@ import java.util.Date;
 @Table(name = "schedule")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne()
     @JoinColumn(name = "room_id")
     private Room room;
-    @OneToOne()
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "talk_id")
     private Talk talk;
-//    private Date year;
     private Date startTime;
-//    private Date endTime;
+    private Date endTime;
+
+    public Schedule(Room room, Talk talk, Date startTime, Date endTime) {
+        this.room = room;
+        this.talk = talk;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
 }
