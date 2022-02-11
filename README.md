@@ -1,4 +1,4 @@
-##Register User
+## Register User
 ```POST localhost:8080/api/auth/signup```
 ```json
   {
